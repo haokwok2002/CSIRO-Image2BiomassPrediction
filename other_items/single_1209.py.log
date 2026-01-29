@@ -1,0 +1,60 @@
++-------+-------------------------------+---------------+--------+--------+---------+
+|   GPU | Name                          | Memory        | Util   | Temp   | Power   |
++=======+===============================+===============+========+========+=========+
+|     0 | NVIDIA GeForce RTX 4070 SUPER | 2886/12282 MB | 2%     | 43°C   | 39.48W  |
++-------+-------------------------------+---------------+--------+--------+---------+
+
+✅ Selected GPU 0 (No fully idle GPU found — selected the one with lowest memory usage)
+Current device: cuda (logical GPU 0)
+
+✅ Config saved to: D:\DATA_hao\Kaggle_\csiro-biomass\DualStream_multihead\2025-12-11-13-48-36\config.json
+
+
+- seed                : 43
+- epochs              : 200
+- freeze_ratio        : 0.8
+- num_workers         : 4
+- prefetch_factor     : 3
+- batch_size          : 4
+- lr                  : 0.0001
+- n_splits            : 5
+- img_size            : 1024
+- img_ratio           : 2.0
+- backbone_name       : vit_large_patch16_dinov3_qkvb.lvd1689m
+- cv_stability_stop_threshold: 0.005
+- min_epoch           : 0
+- mixup               : False
+- cutmix              : False
+- mixup_alpha         : 0.4
+- cutmix_alpha        : 1.0
+- scheduler_type      : cosine
+- n_constant          : 5
+- n_cosine_1          : 25
+- n_constant_2        : 5
+- n_cosine_2          : 80
+- min_lr              : 5e-06
+🔹 weights:
+     - Dry_Green_g         : 0.1
+     - Dry_Clover_g        : 0.1
+     - Dry_Dead_g          : 0.1
+     - GDM_g               : 0.2
+     - Dry_Total_g         : 0.5
+- target_cols         : ['Dry_Green_g', 'Dry_Clover_g', 'Dry_Dead_g', 'GDM_g', 'Dry_Total_g']
+- img_width           : 2048
+- time_str            : 2025-12-11-13-48-36
+
+
+✅ Source code single_1209.py copied to: D:\DATA_hao\Kaggle_\csiro-biomass\DualStream_multihead\2025-12-11-13-48-36\single_1209.py
+
+🚀🚀🚀 Starting training process... 🚀🚀🚀
+
+Current backbone: vit_large_patch16_dinov3_qkvb.lvd1689m
+feature dim =  1024
+[TRAIN] Step    0 | data load:  23126.6 ms | to(device): 2.0 ms | forward+loss:  1871.5 ms | backward+opt: 973.5 ms | total:  2846.9 ms
+[TRAIN] Step   10 | data load:     11.9 ms | to(device): 0.0 ms | forward+loss:  1210.2 ms | backward+opt: 731.3 ms | total:  1941.5 ms
+[TRAIN] Step   20 | data load:     14.9 ms | to(device): 1.0 ms | forward+loss:  1347.8 ms | backward+opt: 853.0 ms | total:  2201.8 ms
+[TRAIN] Step   30 | data load:     20.9 ms | to(device): 1.0 ms | forward+loss:  1156.8 ms | backward+opt: 746.6 ms | total:  1904.4 ms
+[TRAIN] Step   40 | data load:     25.4 ms | to(device): 1.0 ms | forward+loss:  1798.3 ms | backward+opt: 952.7 ms | total:  2752.0 ms
+[TRAIN] Step   50 | data load:     12.4 ms | to(device): 0.0 ms | forward+loss:  1245.0 ms | backward+opt: 774.6 ms | total:  2019.6 ms
+[TRAIN] Step   60 | data load:     22.1 ms | to(device): 0.0 ms | forward+loss:  1222.7 ms | backward+opt: 748.5 ms | total:  1971.3 ms
+[TRAIN] Epoch total time: 189.10s | 70 batches | 2.701s/batch

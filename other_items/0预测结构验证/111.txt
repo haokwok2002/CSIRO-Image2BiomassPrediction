@@ -1,0 +1,61 @@
+我现在有一些想法：
+通过一整套完整代码，使用357张照片划分成训练集和验证集，之后训练。
+训练结束后使用训练好的模型对357张照片进行预测。
+通过分析357张照片真实值和预测值在['Dry_Green_g', 'Dry_Clover_g', 'Dry_Dead_g', 'GDM_g', 'Dry_Total_g']
+上的误差统计，反推出模型的平均“噪声比例” (noise_level)。
+来验证下面的那个方案好，可行么？
+
+
+
+
+
+相同的代码，只是使用不同的具体方案：
+方案A ：
+        G = torch.relu(self.head_green(fused))
+        C = torch.relu(self.head_clover(fused))
+        D = torch.relu(self.head_dead(fused))
+
+        GDM   = G + C
+        Total = G + C + D
+
+
+
+        最后的损失是：
+        # ✅ 按权重组合（官方权重对应）
+        weighted_loss = (
+            self.weights["Dry_Green_g"]  * loss_G   +
+            self.weights["Dry_Clover_g"] * loss_C   +
+            self.weights["Dry_Dead_g"]   * loss_D   +
+            self.weights["GDM_g"]        * loss_GDM +
+            self.weights["Dry_Total_g"]  * loss_Total
+        ).mean()
+
+方案B ：
+        GDM = torch.relu(self.head_GDM(fused))
+        C = torch.relu(self.head_clover(fused))
+        Total = torch.relu(self.head_Total(fused))
+
+        G = torch.relu(GDM - C)
+        D = torch.relu(Total - GDM)
+
+
+
+        最后的损失是：
+        # ✅ 按权重组合（官方权重对应）
+        weighted_loss = (
+            self.weights["Dry_Green_g"]  * loss_G   +
+            self.weights["Dry_Clover_g"] * loss_C   +
+            self.weights["Dry_Dead_g"]   * loss_D   +
+            self.weights["GDM_g"]        * loss_GDM +
+            self.weights["Dry_Total_g"]  * loss_Total
+        ).mean()
+
+
+
+
+
+
+# GDM_g       = Dry_Green_g + Dry_Clover_g
+# Dry_Total_g = Dry_Green_g + Dry_Clover_g + Dry_Dead_g
+
+
